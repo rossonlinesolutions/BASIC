@@ -1,0 +1,14 @@
+@startuml Executor classes
+
+class BasicExecutor {
+    - interpreter: BasicInterpreter&
+    - curr_line: int = 0
+    + BasicExecutor(interpreter: BasicInterpreter&): BasicExecutor
+    + run(): int
+    '-1 = error, 0 = ok, 1 = exit
+    - executeLine(): int {returns -1, 0 or 1}
+}
+
+BasicExecutor o-- BasicInterpreter
+
+@enduml

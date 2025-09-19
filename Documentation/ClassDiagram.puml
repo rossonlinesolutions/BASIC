@@ -1,0 +1,8 @@
+@startuml TinyBasic
+'includes
+!include LexerClasses.puml
+!include InterpreterClasses.puml
+!include ParserClasses.puml
+!include ExecutorClasses.puml
+
+@enduml

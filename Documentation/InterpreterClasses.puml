@@ -1,0 +1,46 @@
+@startuml Interpreter classes
+
+class BasicInterpreter {
+    - env: BasicEnv
+    - next_line: int = 0
+    - runs: int = 0
+    - semanticErrs: int = 0
+    - runtimeErrs : int = 0
+    - lines: std::map<int, BasicStatement>
+    - console: BasicConsole
+    + BasicInterpreter(console: BasicConsole): BasicInterpreter
+    + emit(s: std::string): void
+    - run(): int
+    - lex(s: std::string): std::optional<std::list<BasicToken>>
+    - parse(tokens: std::list<BasicToken>&): std::optional<BasicStatement>
+    + semanticCheck(): bool
+}
+
+abstract class BasicConsole {
+    + {abstract} nextLine(): std::string*
+    + {abstract} printLine(s: const std::string&): void
+}
+
+class BasicTerminal extends BasicConsole {
+    + nextLine(): std::string*
+    + printLine(s: const std::string&): void
+}
+
+class BasicFileConsole extends BasicConsole {
+    + nextLine(): std::string*
+    + printLine(s: const std::string&): void
+}
+
+class BasicEnv {
+    - env: int[26]
+    + get(v: int): int {'A' <= v <= 'Z'}
+    + set(v: int, val: int): void {'A' <= v <= 'Z'}
+}
+
+BasicInterpreter o-- BasicConsole
+BasicInterpreter o-- BasicStatement
+BasicInterpreter o-- BasicEnv
+
+BasicInterpreter -- BasicLexer : calls lexer >
+
+@enduml

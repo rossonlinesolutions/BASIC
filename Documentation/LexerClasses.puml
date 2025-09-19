@@ -1,0 +1,56 @@
+@startuml Lexer classes
+enum BasicTokenType {
+    LET,
+    PRINT,
+    INPUT,
+    IF,
+    THEN,
+    GOTO,
+    GOSUB,
+    RETURN,
+    REM,
+    RUN,
+    RELOP,
+    THEN,
+    INT_LITERAL,
+    STRING_LITERAL,
+    IDENTIFIER,
+    ASSIGN,
+    COMMA,
+    PLUS,
+    MINUS,
+    MUL,
+    DIV,
+    LOWER,
+    GREATER,
+}
+
+class BasicToken {
+    - typ: BasicTokenType
+    - sval: std::string
+    - ival: int
+    + BasicToken(typ: BasicTokenType): BasicToken
+}
+
+class BasicLexer {
+    - remaining: std::string
+    - column: int = 0
+    - tokens: std::list<BasicToken>
+    'console for error reporting
+    - console: BasicConsole&
+    + BasicLexer(console: BasicConsole&, str: const std::string&): BasicLexer
+    + run(): void
+    - printErr(c: char): void
+    - lex_ident(): BasicToken
+    - lex_int_literal(): BasicToken
+    - lex_string_literal(): BasicToken
+    - check_keyword(token: BasicToken&): void
+    - check_identifier(token: BasicToken&): void
+    - next_char(): int
+}
+
+BasicToken o-- BasicTokenType
+BasicLexer o-- BasicConsole
+BasicLexer o-- BasicToken
+
+@enduml

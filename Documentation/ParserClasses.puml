@@ -1,0 +1,108 @@
+@startuml Parser classes
+
+
+abstract class BasicStatement {
+    ' -1 = error, 0 = next, else the line to jump to
+    + {abstract} execute(console: BasicConsole&, v: BasicEnv&): int {returns -1 <= ret <= 2^63-1}
+}
+
+abstract class BasicExpression {
+    + {abstract} eval(v: BasicEnv&): int
+}
+
+class BasicUnaryExpression extends BasicExpression {
+    - isMinus: bool
+    - expr: std::unique_ptr<BasicExpression>
+    + eval(v: BasicEnv&): int
+}
+
+class BasicIntExpression extends BasicExpression {
+    - value: int
+    + eval(v: BasicEnv&): int
+}
+
+class BasicVarExpression extends BasicExpression {
+    - value: char
+    + eval(v: BasicEnv&): int
+}
+
+class BasicBinaryExpression extends BasicExpression {
+    - lexpr: std::unique_ptr<BasicExpression>
+    - rexpr: std::unique_ptr<BasicExpression>
+    - op: BasicBinOp
+    + eval(v: BasicEnv&): int
+}
+
+enum BasicBinOp {
+    PLUS,
+    MINUS,
+    MUL,
+    DIV,
+}
+
+BasicBinaryExpression o-- BasicBinOp
+
+class BasicPrintStatement extends BasicStatement {
+    - expr_list: std::list<BasicExpression>
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicIfStatement extends BasicStatement {
+    - lcondition: BasicExpression
+    - op: BasicOperation
+    - rcondition: BasicExpression
+    - stmt: BasicStatement
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicGotoStatement extends BasicStatement {
+    - expr: BasicExpression
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicInputStatement extends BasicStatement {
+    - vars: std::list<char>
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicLetStatement extends BasicStatement {
+    - variable: char
+    - expr: BasicExpression
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicGoSubStatement extends BasicStatement {
+    - expr: BasicExpression
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicReturnStatement extends BasicStatement {
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+class BasicRunStatement extends BasicStatement {
+    + execute(console: BasicConsole&, v: BasicEnv&): int
+}
+
+enum BasicOperation {
+    LOWER,
+    GREATER,
+    NOT_EQUALS,
+    EQUALS,
+    LOWER_EQUALS,
+    GREATER_EQUALS,
+}
+
+class BasicParser {
+    'TODO
+}
+
+BasicIfStatement o-- BasicExpression
+BasicIfStatement o-- BasicStatement
+BasicPrintStatement o-- BasicExpression
+BasicIfStatement o-- BasicOperation
+BasicGotoStatement o-- BasicExpression
+BasicLetStatement o-- BasicExpression
+BasicGoSubStatement o-- BasicExpression
+
+@enduml
