@@ -1,29 +1,59 @@
 stages:
-  - build
   - test
 
 variables:
   BUILD_DIR: build
+  DEBIAN_FRONTEND: noninteractive
 
-.build_and_test_template:
-  stage: test
+# Common setup: install toolchains, cmake, and build GoogleTest once
+.setup_template:
   before_script:
-    - rm -rf $BUILD_DIR
-    - mkdir $BUILD_DIR
-    - cd $BUILD_DIR
+    - apt-get update
+    - apt-get install -y --no-install-recommends build-essential cmake ninja-build git
+    - apt-get install -y --no-install-recommends libgtest-dev
+    # Build and install GoogleTest (libgtest-dev ships sources only)
+    - cmake -S /usr/src/googletest -B /tmp/gtest-build -GNinja
+    - cmake --build /tmp/gtest-build
+    - cmake --install /tmp/gtest-build
+    # Fresh build dir
+    - rm -rf "$BUILD_DIR"
+    - mkdir -p "$BUILD_DIR"
+    - cd "$BUILD_DIR"
+
+# g++ job
+gpp_test:
+  stage: test
+  image: ubuntu:22.04
+  extends: .setup_template
+  variables:
+    CC: gcc
+    CXX: g++
   script:
-    - cmake .. -DCMAKE_CXX_COMPILER=$CXX
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX
     - cmake --build .
     - ctest --output-on-failure
 
-gpp_test:
-  extends: .build_and_test_template
-  image: gcc:12
-  variables:
-    CXX: g++
-
+# clang++ job
 clang_test:
-  extends: .build_and_test_template
-  image: clang:15
+  stage: test
+  image: ubuntu:22.04
+  extends: .setup_template
+  before_script:
+    # Add clang to the toolchain
+    - apt-get update
+    - apt-get install -y --no-install-recommends clang build-essential cmake ninja-build git libgtest-dev
+    # Build and install GoogleTest once
+    - cmake -S /usr/src/googletest -B /tmp/gtest-build -GNinja
+    - cmake --build /tmp/gtest-build
+    - cmake --install /tmp/gtest-build
+    # Fresh build dir
+    - rm -rf "$BUILD_DIR"
+    - mkdir -p "$BUILD_DIR"
+    - cd "$BUILD_DIR"
   variables:
+    CC: clang
     CXX: clang++
+  script:
+    - cmake .. -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_COMPILER=$CC -DCMAKE_CXX_COMPILER=$CXX
+    - cmake --build .
+    - ctest --output-on-failure
