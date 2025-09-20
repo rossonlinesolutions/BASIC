@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+
+variables:
+  BUILD_DIR: build
+
+.build_and_test_template:
+  stage: test
+  before_script:
+    - rm -rf $BUILD_DIR
+    - mkdir $BUILD_DIR
+    - cd $BUILD_DIR
+  script:
+    - cmake .. -DCMAKE_CXX_COMPILER=$CXX
+    - cmake --build .
+    - ctest --output-on-failure
+
+gpp_test:
+  extends: .build_and_test_template
+  image: gcc:12
+  variables:
+    CXX: g++
+
+clang_test:
+  extends: .build_and_test_template
+  image: clang:15
+  variables:
+    CXX: clang++
