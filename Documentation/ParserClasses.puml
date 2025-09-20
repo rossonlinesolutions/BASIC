@@ -43,20 +43,20 @@ enum BasicBinOp {
 BasicBinaryExpression o-- BasicBinOp
 
 class BasicPrintStatement extends BasicStatement {
-    - expr_list: std::list<BasicExpression>
+    - expr_list: std::list<std::unique_ptr<BasicExpression>>
     + execute(console: BasicConsole&, v: BasicEnv&): int
 }
 
 class BasicIfStatement extends BasicStatement {
-    - lcondition: BasicExpression
+    - lcondition: std::unique_ptr<BasicExpression>
     - op: BasicOperation
-    - rcondition: BasicExpression
-    - stmt: BasicStatement
+    - rcondition: std::unique_ptr<BasicExpression>
+    - stmt: std::unique_ptr<BasicStatement>
     + execute(console: BasicConsole&, v: BasicEnv&): int
 }
 
 class BasicGotoStatement extends BasicStatement {
-    - expr: BasicExpression
+    - expr: std::unique_ptr<BasicExpression>
     + execute(console: BasicConsole&, v: BasicEnv&): int
 }
 
@@ -67,12 +67,12 @@ class BasicInputStatement extends BasicStatement {
 
 class BasicLetStatement extends BasicStatement {
     - variable: char
-    - expr: BasicExpression
+    - expr: std::unique_ptr<BasicExpression>
     + execute(console: BasicConsole&, v: BasicEnv&): int
 }
 
 class BasicGoSubStatement extends BasicStatement {
-    - expr: BasicExpression
+    - expr: std::unique_ptr<BasicExpression>
     + execute(console: BasicConsole&, v: BasicEnv&): int
 }
 
@@ -94,7 +94,12 @@ enum BasicOperation {
 }
 
 class BasicParser {
-    'TODO
+    + parseLine(console: BasicConsole&, ts: std::list<BasicToken>&): std::unique_ptr<BasicStatement>
+    - parseStatement(console: BasicConsole&, ts: std::list<BasicToken>&): std::unique_ptr<BasicStatement>
+    - parseBinExpression(console: BasicConsole&, ts: std::list<BasicToken>&): std::unique_ptr<BasicExpression>
+    - parseSimpleExpression(console: BasicConsole&, ts: std::list<BasicToken>&): std::unique_ptr<BasicExpression>
+    - parseExpressionList(console: BasicConsole&, ts: std::list<BasicToken>&): std::list<std::unique_ptr<BasicExpression>>
+    - parseOp(console: BasicConsole&, ts: std::list<BasicToken>&): std::tuple<BasicOperation, int, int>
 }
 
 BasicIfStatement o-- BasicExpression

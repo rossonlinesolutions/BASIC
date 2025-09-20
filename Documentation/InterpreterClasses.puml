@@ -14,6 +14,7 @@ class BasicInterpreter {
     - lex(s: std::string): std::optional<std::list<BasicToken>>
     - parse(tokens: std::list<BasicToken>&): std::optional<BasicStatement>
     + semanticCheck(): bool
+    + getStatementAt(addr: int): std::pair<int, std::optional<BasicStatement>> {-1 if EOF, else positive number and statement}
 }
 
 abstract class BasicConsole {
@@ -33,8 +34,11 @@ class BasicFileConsole extends BasicConsole {
 
 class BasicEnv {
     - env: int[26]
+    - callStack: std::list<int>
     + get(v: int): int {'A' <= v <= 'Z'}
     + set(v: int, val: int): void {'A' <= v <= 'Z'}
+    + pushCurrLine(line: int): void
+    + popReturnAddress(): int {returns -1 on error, else positive number}
 }
 
 BasicInterpreter o-- BasicConsole
