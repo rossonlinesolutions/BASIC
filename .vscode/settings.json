@@ -1,0 +1,15 @@
+{
+    "[makefile]": {
+        "editor.insertSpaces": false,
+        "editor.detectIndentation": false
+    },
+    "C_Cpp.default.includePath": [
+        "include"
+    ],
+    "C_Cpp.clang_format_path": "/usr/bin/clang-format",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "file",
+    "editor.formatOnType": true,
+    "C_Cpp.default.cppStandard": "c++17"
+}
