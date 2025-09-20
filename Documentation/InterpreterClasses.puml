@@ -6,15 +6,15 @@ class BasicInterpreter {
     - runs: int = 0
     - semanticErrs: int = 0
     - runtimeErrs : int = 0
-    - lines: std::map<int, BasicStatement>
+    - lines: std::map<int, std::unique_ptr<BasicStatement>>
     - console: BasicConsole
     + BasicInterpreter(console: BasicConsole): BasicInterpreter
     + emit(s: std::string): void
     - run(): int
     - lex(s: std::string): std::optional<std::list<BasicToken>>
-    - parse(tokens: std::list<BasicToken>&): std::optional<BasicStatement>
+    - parse(tokens: std::list<BasicToken>&): std::unique_ptr<BasicStatement>
     + semanticCheck(): bool
-    + getStatementAt(addr: int): std::pair<int, std::optional<BasicStatement>> {-1 if EOF, else positive number and statement}
+    + getStatementAt(addr: int): std::pair<int, std::optional<BasicStatement*>> {-1 if EOF, else positive number and statement}
 }
 
 abstract class BasicConsole {
@@ -46,5 +46,7 @@ BasicInterpreter o-- BasicStatement
 BasicInterpreter o-- BasicEnv
 
 BasicInterpreter -- BasicLexer : calls lexer >
+BasicInterpreter -- BasicParser : calls parser >
+BasicInterpreter -- BasicExecutor : calls executor >
 
 @enduml
