@@ -5,6 +5,7 @@ include_directories(${GTEST_INCLUDE_DIRS} ../include)
 set(TEST_SOURCES
     test_main.cpp
     BasicEnvTest.cpp
+    BasicFileConsoleTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)
