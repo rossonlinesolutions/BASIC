@@ -7,7 +7,6 @@ enum class BasicTokenType {
     PRINT,
     INPUT,
     IF,
-    THEN,
     GOTO,
     GOSUB,
     RETURN,
@@ -23,14 +22,18 @@ enum class BasicTokenType {
     MUL,
     DIV,
     LOWER,
-    GREATER
+    GREATER,
+    STRING_LITERAL
 };
+
+extern std::string basicTokenToString(BasicTokenType typ);
 
 struct BasicToken {
     BasicTokenType typ;
-    std::string sval = "";
-    int ival         = 0;
+    std::string sval       = "";
+    unsigned long int ival = 0;
 
     BasicToken(BasicTokenType typ) : typ(typ) {
     }
+    std::string to_string() const;
 };

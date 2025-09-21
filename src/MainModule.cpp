@@ -1,3 +1,5 @@
 #include "BasicEnv.cpp"
 #include "BasicFileConsole.cpp"
+#include "BasicLexer.cpp"
 #include "BasicTerminal.cpp"
+#include "BasicToken.cpp"
