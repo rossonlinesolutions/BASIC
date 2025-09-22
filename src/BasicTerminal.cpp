@@ -16,7 +16,11 @@ std::string* readStdinConsole() {
 }
 
 std::string* BasicTerminal::readStdin() {
-    return readStdinConsole();
+    std::string line;
+    if(!std::getline(std::cin, line)) {
+        return nullptr;
+    }
+    return new std::string(line);
 }
 
 void BasicTerminal::printLine(const std::string& s) {

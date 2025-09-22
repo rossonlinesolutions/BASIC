@@ -43,5 +43,9 @@ void BasicFileConsole::setContent(const std::string& content) {
 }
 
 std::string* BasicFileConsole::readStdin() {
-    return readStdinConsole();
+    std::string line;
+    if(!std::getline(std::cin, line)) {
+        return nullptr;
+    }
+    return new std::string(line);
 }
