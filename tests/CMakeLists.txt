@@ -7,6 +7,8 @@ set(TEST_SOURCES
     BasicEnvTest.cpp
     BasicFileConsoleTest.cpp
     BasicLexerTest.cpp
+    BasicTestConsole.cpp
+    BasicInputStatementTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)

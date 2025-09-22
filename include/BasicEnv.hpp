@@ -1,5 +1,6 @@
 #pragma once
 
+#include <BasicConsole.hpp>
 #include <list>
 #include <string>
 
@@ -14,5 +15,5 @@ class BasicEnv {
     void set(int v, int val);
     void pushCurrLine(int line);
     int popReturnAddress();
-    char nextStdin();
+    char nextStdin(BasicConsole& console);
 };

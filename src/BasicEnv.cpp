@@ -23,7 +23,7 @@ int BasicEnv::popReturnAddress() {
     return ret;
 }
 
-char BasicEnv::nextStdin() {
+char BasicEnv::nextStdin(BasicConsole& console) {
     // if buffer is still not empty, return content
     if(!this->stdin_buffer.empty()) {
         char ret = this->stdin_buffer.back();
@@ -32,7 +32,7 @@ char BasicEnv::nextStdin() {
     }
 
     // else request one more line
-    std::string* input = readStdinConsole();
+    std::string* input = console.readStdin();
 
     // EOF
     if(input == nullptr)
@@ -43,5 +43,5 @@ char BasicEnv::nextStdin() {
     delete input;
 
     // rerun
-    return this->nextStdin();
+    return this->nextStdin(console);
 }

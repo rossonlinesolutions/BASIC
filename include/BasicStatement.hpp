@@ -8,6 +8,7 @@ class BasicStatement {
     private:
     const std::string className;
 
+    protected:
     virtual std::string property_string() const = 0;
 
     public:
