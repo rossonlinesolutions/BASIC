@@ -19,5 +19,6 @@ class BasicFileConsole : public BasicConsole {
 
     void setContent(const std::string& content);
     std::string* nextLine() override;
+    std::string* readStdin() override;
     void printLine(const std::string& s) override;
 };

@@ -6,5 +6,8 @@ class BasicConsole {
     public:
     virtual std::string* nextLine()              = 0;
     virtual void printLine(const std::string& s) = 0;
+    virtual std::string* readStdin()             = 0;
     virtual ~BasicConsole()                      = default;
 };
+
+extern std::string* readStdinConsole();

@@ -41,3 +41,7 @@ void BasicFileConsole::printLine(const std::string& s) {
 void BasicFileConsole::setContent(const std::string& content) {
     this->content = std::string(content.rbegin(), content.rend());
 }
+
+std::string* BasicFileConsole::readStdin() {
+    return readStdinConsole();
+}
