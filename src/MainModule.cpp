@@ -6,3 +6,4 @@
 #include "BasicTerminal.cpp"
 #include "BasicToken.cpp"
 #include "BasicUnaryExpression.cpp"
+#include "BasicVarExpression.cpp"
