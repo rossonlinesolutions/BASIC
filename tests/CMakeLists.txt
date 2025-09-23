@@ -10,6 +10,7 @@ set(TEST_SOURCES
     BasicTestConsole.cpp
     BasicInputStatementTest.cpp
     BasicUnaryExpressionTest.cpp
+    BasicBinaryExpressionTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)

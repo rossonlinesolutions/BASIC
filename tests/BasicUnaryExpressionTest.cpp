@@ -107,3 +107,18 @@ TEST(AllTests, BasicUnaryExpressionMinusNegativeVar) {
     // assert
     ASSERT_EQ(res, 142);
 }
+
+TEST(AllTests, BasicUnaryExpressionMinusMinusInt) {
+    BasicEnv env;
+    auto inner1    = std::make_unique<BasicIntExpression>(42);
+    auto inner     = std::make_unique<BasicUnaryExpression>(std::move(inner1));
+    inner->isMinus = true;
+    BasicUnaryExpression expr {std::move(inner)};
+    expr.isMinus = true;
+
+    // eval
+    int res = expr.eval(env);
+
+    // assert
+    ASSERT_EQ(res, 42);
+}

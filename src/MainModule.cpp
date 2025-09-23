@@ -1,3 +1,4 @@
+#include "BasicBinaryExpression.cpp"
 #include "BasicEnv.cpp"
 #include "BasicFileConsole.cpp"
 #include "BasicInputStatement.cpp"
