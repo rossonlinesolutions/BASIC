@@ -1,6 +1,8 @@
 #include "BasicEnv.cpp"
 #include "BasicFileConsole.cpp"
 #include "BasicInputStatement.cpp"
+#include "BasicIntExpression.cpp"
 #include "BasicLexer.cpp"
 #include "BasicTerminal.cpp"
 #include "BasicToken.cpp"
+#include "BasicUnaryExpression.cpp"

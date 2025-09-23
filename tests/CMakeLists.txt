@@ -9,6 +9,7 @@ set(TEST_SOURCES
     BasicLexerTest.cpp
     BasicTestConsole.cpp
     BasicInputStatementTest.cpp
+    BasicUnaryExpressionTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)
