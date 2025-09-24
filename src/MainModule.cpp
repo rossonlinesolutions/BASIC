@@ -6,6 +6,7 @@
 #include "BasicIntExpression.cpp"
 #include "BasicLetStatement.cpp"
 #include "BasicLexer.cpp"
+#include "BasicReturnStatement.cpp"
 #include "BasicTerminal.cpp"
 #include "BasicToken.cpp"
 #include "BasicUnaryExpression.cpp"
