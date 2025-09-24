@@ -3,6 +3,7 @@
 #include "BasicFileConsole.cpp"
 #include "BasicGoSubStatement.cpp"
 #include "BasicGotoStatement.cpp"
+#include "BasicIfStatement.cpp"
 #include "BasicInputStatement.cpp"
 #include "BasicIntExpression.cpp"
 #include "BasicLetStatement.cpp"
