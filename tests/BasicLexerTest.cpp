@@ -118,6 +118,36 @@ TEST(AllTests, LexerNumberFortyTwo) {
     ASSERT_EQ(lexer.tokens.front().ival, 42);
 }
 
+TEST(AllTests, LexerNumberAsciiAt) {
+    std::string input = "#@";
+    BasicTerminal terminal;
+    BasicLexer lexer {terminal, input};
+
+    // run
+    lexer.run();
+
+    // assert
+    ASSERT_EQ(lexer.tokens.size(), 1);
+    ASSERT_EQ(lexer.hasError(), false);
+    ASSERT_EQ(lexer.tokens.front().typ, BasicTokenType::INT_LITERAL);
+    ASSERT_EQ(lexer.tokens.front().ival, '@');
+}
+
+TEST(AllTests, LexerNumberAsciiA) {
+    std::string input = "#a";
+    BasicTerminal terminal;
+    BasicLexer lexer {terminal, input};
+
+    // run
+    lexer.run();
+
+    // assert
+    ASSERT_EQ(lexer.tokens.size(), 1);
+    ASSERT_EQ(lexer.hasError(), false);
+    ASSERT_EQ(lexer.tokens.front().typ, BasicTokenType::INT_LITERAL);
+    ASSERT_EQ(lexer.tokens.front().ival, 'a');
+}
+
 TEST(AllTests, LexerNumberComplex) {
     std::string input = "1234567890";
     BasicTerminal terminal;

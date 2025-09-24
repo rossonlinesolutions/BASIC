@@ -182,6 +182,19 @@ void BasicLexer::run() {
                 this->tokens.push_back(this->lex_string_literal());
                 break;
             }
+            case '#': {
+                int nxt = this->next_char();
+
+                if(nxt == -1) {
+                    this->printErr('?');
+                    return;
+                }
+
+                BasicToken tok {BasicTokenType::INT_LITERAL};
+                tok.ival = nxt;
+                this->tokens.push_back(tok);
+                break;
+            }
             default: {
                 if(isupper(nxt)) {
                     this->tokens.push_back(this->lex_ident(nxt));
