@@ -3,6 +3,7 @@
 #include "BasicFileConsole.cpp"
 #include "BasicInputStatement.cpp"
 #include "BasicIntExpression.cpp"
+#include "BasicLetStatement.cpp"
 #include "BasicLexer.cpp"
 #include "BasicTerminal.cpp"
 #include "BasicToken.cpp"
