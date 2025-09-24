@@ -12,6 +12,7 @@ set(TEST_SOURCES
     BasicUnaryExpressionTest.cpp
     BasicBinaryExpressionTest.cpp
     BasicLetStatementTest.cpp
+    BasicGotoStatementTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)

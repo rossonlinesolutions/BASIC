@@ -1,6 +1,7 @@
 #include "BasicBinaryExpression.cpp"
 #include "BasicEnv.cpp"
 #include "BasicFileConsole.cpp"
+#include "BasicGotoStatement.cpp"
 #include "BasicInputStatement.cpp"
 #include "BasicIntExpression.cpp"
 #include "BasicLetStatement.cpp"
