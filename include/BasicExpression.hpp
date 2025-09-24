@@ -1,6 +1,8 @@
 #pragma once
 
 #include <BasicEnv.hpp>
+#include <list>
+#include <memory>
 #include <string>
 
 class BasicExpression {
@@ -21,3 +23,5 @@ class BasicExpression {
         return className + "{" + this->property_string() + "}";
     }
 };
+
+using BasicExpressionList = std::list<std::unique_ptr<BasicExpression>>;

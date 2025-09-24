@@ -14,6 +14,7 @@ set(TEST_SOURCES
     BasicLetStatementTest.cpp
     BasicGotoStatementTest.cpp
     BasicGoSubStatementTest.cpp
+    BasicPrintStatementTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)

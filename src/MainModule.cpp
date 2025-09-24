@@ -7,6 +7,7 @@
 #include "BasicIntExpression.cpp"
 #include "BasicLetStatement.cpp"
 #include "BasicLexer.cpp"
+#include "BasicPrintStatement.cpp"
 #include "BasicReturnStatement.cpp"
 #include "BasicRunStatement.hpp"
 #include "BasicTerminal.cpp"
