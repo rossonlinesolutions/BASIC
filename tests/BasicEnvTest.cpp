@@ -19,7 +19,8 @@ TEST(AllTests, BasicEnvSimpleTest) {
 
 TEST(AllTests, BasicEnvCallStackTest) {
     BasicEnv env;
-    env.pushCurrLine(10);
+    env.set_line(10);
+    env.pushCurrLine();
 
     int c1 = env.popReturnAddress();
     int c2 = env.popReturnAddress();

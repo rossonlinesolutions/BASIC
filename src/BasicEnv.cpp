@@ -9,8 +9,8 @@ void BasicEnv::set(int v, int val) {
     this->env[v - 'A'] = val;
 }
 
-void BasicEnv::pushCurrLine(int line) {
-    this->callStack.push_front(line);
+void BasicEnv::pushCurrLine() {
+    this->callStack.push_front(this->curr_line);
 }
 
 int BasicEnv::popReturnAddress() {

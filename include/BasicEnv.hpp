@@ -9,11 +9,20 @@ class BasicEnv {
     int env[26];
     std::list<int> callStack;
     std::string stdin_buffer;
+    int curr_line = 0;
 
     public:
+    inline void set_line(int line) {
+        this->curr_line = line;
+    }
+
+    inline int get_line() {
+        return this->curr_line;
+    }
+
     int get(int v) const;
     void set(int v, int val);
-    void pushCurrLine(int line);
+    void pushCurrLine();
     int popReturnAddress();
     char nextStdin(BasicConsole& console);
 };
