@@ -5,7 +5,7 @@
 
 void BasicInterpreter::emit(const std::string& s) {
     this->next_line++;
-    if(s.find("REM")) {
+    if(s.find("REM") != std::string::npos) {
         return;
     }
 
