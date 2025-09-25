@@ -16,6 +16,7 @@ set(TEST_SOURCES
     BasicGoSubStatementTest.cpp
     BasicPrintStatementTest.cpp
     BasicIfStatementTest.cpp
+    BasicParserTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)

@@ -1,7 +1,9 @@
 #include <BasicVarExpression.hpp>
 
 std::string BasicVarExpression::property_string() {
-    return "" + this->value;
+    std::string res;
+    res.push_back(this->value);
+    return res;
 }
 
 int BasicVarExpression::eval(BasicEnv& env) const {

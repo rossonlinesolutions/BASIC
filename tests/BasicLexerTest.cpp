@@ -76,6 +76,22 @@ TEST(AllTests, LexerKeywordIdent) {
     ASSERT_EQ(lexer.tokens.back().sval, "X");
 }
 
+TEST(AllTests, LexerKeywordIdent2) {
+    std::string input = "GOSUB F";
+    BasicTerminal terminal;
+    BasicLexer lexer {terminal, input};
+
+    // run
+    lexer.run();
+
+    // assert
+    ASSERT_EQ(lexer.tokens.size(), 2);
+    ASSERT_EQ(lexer.hasError(), false);
+    ASSERT_EQ(lexer.tokens.front().typ, BasicTokenType::GOSUB);
+    ASSERT_EQ(lexer.tokens.back().typ, BasicTokenType::IDENTIFIER);
+    ASSERT_EQ(lexer.tokens.back().sval, "F");
+}
+
 TEST(AllTests, LexerLowercase) {
     std::string input = "x";
     BasicTerminal terminal;
