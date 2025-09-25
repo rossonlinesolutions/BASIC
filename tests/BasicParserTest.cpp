@@ -91,3 +91,29 @@ TEST(AllTests, ParserGoSubVar) {
     ASSERT_NE(stmt, nullptr);
     ASSERT_EQ(stmt->to_string(), "GoSubStatement{VarExpression{F}}");
 }
+
+TEST(AllTests, ParserGoSubBinary) {
+    std::string input = "GOSUB 3 * Q";
+    BasicTestConsole console;
+    BasicParser parser;
+    auto ts = parser_test_setup(console, input);
+
+    auto stmt = parser.parseLine(console, ts);
+
+    ASSERT_NE(stmt, nullptr);
+    ASSERT_EQ(stmt->to_string(), "GoSubStatement{BinaryExpression{IntExpression{3},VarExpression{Q},MUL}}");
+}
+
+TEST(AllTests, ParserGoSubBinaryPrec) {
+    std::string input = "GOSUB 1 + 3 * Q";
+    BasicTestConsole console;
+    BasicParser parser;
+    auto ts = parser_test_setup(console, input);
+
+    auto stmt = parser.parseLine(console, ts);
+
+    ASSERT_NE(stmt, nullptr);
+    ASSERT_EQ(
+        stmt->to_string(),
+        "GoSubStatement{BinaryExpression{IntExpression{1},BinaryExpression{IntExpression{3},VarExpression{Q},MUL},PLUS}}");
+}

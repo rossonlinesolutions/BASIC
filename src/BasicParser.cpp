@@ -242,12 +242,13 @@ static std::unique_ptr<BasicExpression> basic_parse_precedence(const BasicParser
         return lhs;
 
     // now parse precedence right
-    if(auto rhs = parser.parseSimpleExpression(console, ts)) {
-        auto expr = std::make_unique<BasicBinaryExpression>(std::move(lhs), std::move(rhs), std::get<0>(op.value()));
-        return basic_parse_precedence(parser, console, ts, std::move(expr), std::get<2>(op.value()));
-    } else {
-        return nullptr;
+    if(auto right = parser.parseSimpleExpression(console, ts)) {
+        if(auto rhs = basic_parse_precedence(parser, console, ts, std::move(right), std::get<2>(op.value()))) {
+            auto expr = std::make_unique<BasicBinaryExpression>(std::move(lhs), std::move(rhs), std::get<0>(op.value()));
+            return basic_parse_precedence(parser, console, ts, std::move(expr), lprec);
+        }
     }
+    return nullptr;
 }
 
 std::unique_ptr<BasicExpression> BasicParser::parseBinExpression(BasicConsole& console, BasicTokenList& ts) const {
