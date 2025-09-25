@@ -182,6 +182,14 @@ void BasicLexer::run() {
                 this->tokens.push_back(this->lex_string_literal());
                 break;
             }
+            case '(': {
+                this->tokens.push_back(BasicToken {BasicTokenType::LPAREN});
+                break;
+            }
+            case ')': {
+                this->tokens.push_back(BasicToken {BasicTokenType::RPAREN});
+                break;
+            }
             case '#': {
                 int nxt = this->next_char();
 

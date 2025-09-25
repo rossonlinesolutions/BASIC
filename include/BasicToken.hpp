@@ -23,7 +23,9 @@ enum class BasicTokenType {
     DIV,
     LOWER,
     GREATER,
-    STRING_LITERAL
+    STRING_LITERAL,
+    LPAREN,
+    RPAREN
 };
 
 extern std::string basicTokenToString(BasicTokenType typ);
