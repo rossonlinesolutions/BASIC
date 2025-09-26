@@ -17,10 +17,13 @@ set(TEST_SOURCES
     BasicPrintStatementTest.cpp
     BasicIfStatementTest.cpp
     BasicParserTest.cpp
+    BasicSystemTest.cpp
 )
 
 set(MAIN_SOURCES ../src/MainModule.cpp)
 
+set(SYSTEM_TEST_DIR "${PROJECT_SOURCE_DIR}/tests/system")
 add_executable(runTests ${TEST_SOURCES} ${MAIN_SOURCES})
 target_link_libraries(runTests PRIVATE GTest::GTest GTest::Main pthread)
 add_test(NAME AllTests COMMAND runTests)
+target_compile_definitions(runTests PRIVATE SYSTEM_TEST_DIR="${SYSTEM_TEST_DIR}")

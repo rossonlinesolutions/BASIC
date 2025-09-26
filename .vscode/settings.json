@@ -10,6 +10,7 @@
   "editor.formatOnSaveMode": "file",
   "editor.formatOnType": true,
   "C_Cpp.default.cppStandard": "c++17",
+  "C_Cpp.default.defines": ["SYSTEM_TEST_DIR=\"tests/system\""],
   "files.associations": {
     "iostream": "cpp",
     "any": "cpp",
