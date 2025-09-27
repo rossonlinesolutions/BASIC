@@ -43,11 +43,13 @@ void BasicInterpreter::emit(const std::string& s) {
 void BasicInterpreter::runInteractive() {
     while(true) {
         std::string* input = this->console.nextLine();
-        bool exit          = input->find("EXIT") != std::string::npos;
-        exit               = exit || input->find("exit") != std::string::npos;
-        exit               = exit || input->find("quit") != std::string::npos;
-        exit               = exit || input->find("QUIT") != std::string::npos;
-        if(!input || exit)
+        if(!input)
+            return;
+        bool exit = input->find("EXIT") != std::string::npos;
+        exit      = exit || input->find("exit") != std::string::npos;
+        exit      = exit || input->find("quit") != std::string::npos;
+        exit      = exit || input->find("QUIT") != std::string::npos;
+        if(exit)
             return;
 
         std::string src = *input;
