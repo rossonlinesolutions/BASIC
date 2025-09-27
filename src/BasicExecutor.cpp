@@ -13,9 +13,11 @@ int BasicExecutor::run() {
 
 int BasicExecutor::executeLine() {
     auto stmt = this->interpreter.getStatementAt(curr_line);
-    curr_line++;
     if(stmt.first == -1)
         return 1;
+
+    // set the next line to the statements line + 1
+    curr_line = stmt.first + 1;
 
     int result = stmt.second.value()->execute(this->interpreter.console, this->interpreter.env);
 
