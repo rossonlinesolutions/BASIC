@@ -28,7 +28,7 @@ std::string* BasicFileConsole::nextLine() {
     if(!this->content.empty())
         this->content.pop_back();
 
-    if(!content.empty() && content.back() == '\r')
+    if(!content.empty() && content.back() == '\n')
         this->content.pop_back();
 
     return line;

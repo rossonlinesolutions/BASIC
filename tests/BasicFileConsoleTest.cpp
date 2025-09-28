@@ -46,7 +46,7 @@ TEST(AllTests, BasicFileConsoleReadTest) {
 TEST(AllTests, BasicFileConsoleWindowsTest) {
     BasicFileConsole console;
 
-    std::string content = "10 INPUT C\n\r20 RUN";
+    std::string content = "10 INPUT C\r\n20 RUN";
 
     console.setContent(content);
 
