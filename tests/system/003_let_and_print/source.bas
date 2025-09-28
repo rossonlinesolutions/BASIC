@@ -1,0 +1,3 @@
+10 LET A = 65
+20 PRINT A
+30 RUN

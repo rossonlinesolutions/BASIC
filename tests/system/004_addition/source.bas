@@ -1,0 +1,4 @@
+10 LET A = 65
+20 LET B = 1
+30 PRINT A + B
+40 RUN
