@@ -42,16 +42,16 @@ Once launched, you'll enter the REPL. You can type Tiny BASIC commands directly 
 
 ## 📚 Language Reference
 
-| Command     | Description                            |
-|-------------|----------------------------------------|
-| `LET`       | Assign value to variable               |
-| `PRINT`     | Display value or string                |
-| `INPUT`     | Read user input                        |
-| `IF ... THEN` | Conditional execution                |
-| `GOTO`      | Jump to a line number                  |
-| `GOSUB`/`RETURN` | Subroutine call/return           |
-| `REM`       | Comment                                |
-| `END`       | Terminate program                      |
+| Command     | Description                             |
+|-------------|-----------------------------------------|
+| `LET`       | Assign value to variable                |
+| `PRINT`     | Display a string or character sequences |
+| `INPUT`     | Read user input                         |
+| `IF ... THEN` | Conditional execution                 |
+| `GOTO`      | Jump to a line number                   |
+| `GOSUB`/`RETURN` | Subroutine call/return             |
+| `REM`       | Comment                                 |
+| `END`       | Terminate program                       |
 
 See [the Language Specification](./Documentation/specification/01-Introduction-and-scope.md) for full language reference.
 

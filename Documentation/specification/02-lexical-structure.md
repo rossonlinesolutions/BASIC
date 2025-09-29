@@ -115,8 +115,6 @@ The following operators are defined:
 Delimiters include:
 - Parentheses `(` `)`
 - Comma `,`
-- Semicolon `;`
-- Colon `:` (for statement separation)
 
 ## 2.8 Line Numbers
 - Line numbers are optional.
