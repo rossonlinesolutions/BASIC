@@ -1,20 +1,16 @@
-# 🧮 Tiny BASIC Interpreter in C++
+# 🧮 BASIC Interpreter in C++
 
-Welcome to your very own retro computing adventure! This project is a minimalist interpreter for **Tiny BASIC**, a simplified version of the BASIC programming language originally designed for early microcomputers. Written in modern C++, this interpreter brings vintage programming charm to today's systems.
-
----
+Welcome to your very own retro computing adventure! This project is a minimalist interpreter for our own **BASIC** dialect, a simplified version of the BASIC programming language originally designed for early microcomputers. Written in modern C++, this interpreter brings vintage programming charm to today's systems.
 
 ## 🚀 Features
 
 - 📝 Line-numbered program input
 - 🔤 Single-letter variables (`A` to `Z`)
 - 📤 Basic I/O: `PRINT`, `INPUT`
-- 🔁 Control flow: `IF`, `GOTO`, `GOSUB`, `RETURN`, `FOR`, `NEXT`
+- 🔁 Control flow: `IF`, `GOTO`, `GOSUB`, `RETURN`
 - 💬 Comments via `REM`
 - 🧠 In-memory program storage and execution
 - 🧪 Interactive REPL (Read-Eval-Print Loop)
-
----
 
 ## 📦 Getting Started
 
@@ -22,44 +18,27 @@ Welcome to your very own retro computing adventure! This project is a minimalist
 
 - C++17 or later
 - A standard C++ compiler (e.g., `g++`, `clang++`, MSVC)
+- Google test
 
 ### Build Instructions
 
 ```bash
-git clone https://github.com/rossonlinesolutions/tiny-basic.git
-cd tiny-basic
+git clone https://github.com/rossonlinesolutions/BASIC.git
+cd BASIC
 make
-./tinybasic
+./build/basic
 ```
 
 Or compile manually:
 
 ```bash
-g++ -std=c++17 -o tinybasic main.cpp
+g++ -std=c++17 -o basic -Iinclude src/Main.cpp
 ```
 
----
 
 ## 🧑‍💻 Usage
 
 Once launched, you'll enter the REPL. You can type Tiny BASIC commands directly or enter a full program line-by-line using line numbers.
-
-### Example Program
-
-```basic
-10 REM Factorial calculator
-20 INPUT N
-30 LET F = 1
-40 FOR I = 1 TO N
-50 LET F = F * I
-60 NEXT I
-70 PRINT F
-80 END
-```
-
-Type `RUN` to execute your program. Use `LIST` to view it, and `NEW` to clear memory.
-
----
 
 ## 📚 Language Reference
 
@@ -71,9 +50,10 @@ Type `RUN` to execute your program. Use `LIST` to view it, and `NEW` to clear me
 | `IF ... THEN` | Conditional execution                |
 | `GOTO`      | Jump to a line number                  |
 | `GOSUB`/`RETURN` | Subroutine call/return           |
-| `FOR`/`NEXT` | Looping construct                     |
 | `REM`       | Comment                                |
 | `END`       | Terminate program                      |
+
+See [the Language Specification](./Documentation/specification/01-Introduction-and-scope.md) for full language reference.
 
 
 ## 📜 License
