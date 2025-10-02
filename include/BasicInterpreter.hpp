@@ -23,6 +23,22 @@ class BasicInterpreter {
     BasicInterpreter(BasicConsole& console) : console(console) {
     }
 
+    inline int getRuns() {
+        return this->runs;
+    }
+
+    inline int getSemanticErrs() {
+        return this->semanticErrs;
+    }
+
+    inline int getRuntimeErrs() {
+        return this->runtimeErrs;
+    }
+
+    inline int getTotalErrs() {
+        return this->getRuntimeErrs() + this->getSemanticErrs();
+    }
+
     void emit(const std::string& s);
     std::pair<int, std::optional<BasicStatement*>> getStatementAt(int addr) const;
     void runInteractive();

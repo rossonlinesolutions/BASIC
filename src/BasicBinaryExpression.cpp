@@ -9,8 +9,11 @@ static int evaluate_expr(int left, BasicBinOp op, int right) {
         case BasicBinOp::MUL:
             return left * right;
         /* case BasicBinOp::DIV: */
-        default:
+        default: {
+            if(right == 0)
+                throw std::string {DIVISION_BY_ZERO};
             return left / right;
+        }
     }
 }
 

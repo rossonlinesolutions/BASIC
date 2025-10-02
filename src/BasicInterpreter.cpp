@@ -33,13 +33,24 @@ void BasicInterpreter::emit(const std::string& s) {
 
     bool runCode = (dynamic_cast<BasicRunStatement*>(stmt.get()) != nullptr);
 
-    this->lines[this->next_line] = std::move(stmt);
-
     if(runCode) {
-        int res = this->run();
+        int res = 0;
+        try {
+            res = this->run();
+        } catch(const std::string& s) {
+            if(s == DIVISION_BY_ZERO) {
+                res = -1;
+                console.printLine("Execution aborted: Division by zero.");
+            } else {
+                throw s;
+            }
+        }
         if(res == -1) {
             this->runtimeErrs++;
         }
+    } else {
+        // if not a RunStatement, store the line
+        this->lines[this->next_line] = std::move(stmt);
     }
 }
 

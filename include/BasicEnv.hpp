@@ -26,3 +26,5 @@ class BasicEnv {
     int popReturnAddress();
     char nextStdin(BasicConsole& console);
 };
+
+#define DIVISION_BY_ZERO "Division by Zero."

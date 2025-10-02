@@ -41,7 +41,6 @@ namespace basic {
         BasicInterpreter interpreter {console ? *console : terminal};
 
         interpreter.runInteractive();
-        return 0;
+        return interpreter.getTotalErrs() == 0 ? 0 : -1;
     }
-
 }
