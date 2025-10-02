@@ -16,6 +16,9 @@ void BasicInterpreter::emit(const std::string& s) {
     }
 
     auto ts = ots.value();
+    if(ts.empty())
+        return;
+
     if(!ts.empty() && ts.front().typ == BasicTokenType::INT_LITERAL) {
         this->next_line = ts.front().ival;
         ts.pop_front();
