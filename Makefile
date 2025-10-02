@@ -8,4 +8,7 @@ test:
 clean:
 	rm -rf build
 
-.PHONY: all test clean
+stats:
+	@find . -regextype posix-egrep -regex ".*\.([ch]pp|[ch])" -not -path "./build/*" | xargs wc -l | sort -n
+
+.PHONY: all test clean stats
