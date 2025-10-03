@@ -76,6 +76,23 @@ TEST(AllTests, LexerKeywordIdent) {
     ASSERT_EQ(lexer.tokens.back().sval, "X");
 }
 
+TEST(AllTests, LexerKeywordEndExitQuit) {
+    std::string input = "END EXIT QUIT";
+    BasicTerminal terminal;
+    BasicLexer lexer {terminal, input};
+
+    // run
+    lexer.run();
+
+    // assert
+    ASSERT_EQ(lexer.tokens.size(), 3);
+    ASSERT_EQ(lexer.hasError(), false);
+    ASSERT_EQ(lexer.tokens.front().typ, BasicTokenType::END);
+    lexer.tokens.pop_front();
+    ASSERT_EQ(lexer.tokens.front().typ, BasicTokenType::EXIT);
+    ASSERT_EQ(lexer.tokens.back().typ, BasicTokenType::EXIT);
+}
+
 TEST(AllTests, LexerKeywordIdent2) {
     std::string input = "GOSUB F";
     BasicTerminal terminal;
