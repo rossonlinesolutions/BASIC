@@ -4,16 +4,13 @@ enum BasicTokenType {
     PRINT,
     INPUT,
     IF,
-    THEN,
     GOTO,
     GOSUB,
     RETURN,
     REM,
     RUN,
-    RELOP,
     THEN,
     INT_LITERAL,
-    STRING_LITERAL,
     IDENTIFIER,
     ASSIGN,
     COMMA,
@@ -23,30 +20,37 @@ enum BasicTokenType {
     DIV,
     LOWER,
     GREATER,
+    STRING_LITERAL,
+    LPAREN,
+    RPAREN,
 }
 
 class BasicToken {
     - typ: BasicTokenType
     - sval: std::string
-    - ival: int
+    - ival: unsigned long int
     + BasicToken(typ: BasicTokenType): BasicToken
+    + to_string(): std::string
 }
 
 class BasicLexer {
     - remaining: std::string
     - column: int = 0
-    - tokens: std::list<BasicToken>
     'console for error reporting
     - console: BasicConsole&
+    - err: bool = false
     + BasicLexer(console: BasicConsole&, str: const std::string&): BasicLexer
+    + hasError(): bool
+    + next_char(): int
+    + ret_char(c: char): void
+    + empty(): bool
     + run(): void
-    - printErr(c: char): void
-    - lex_ident(): BasicToken
-    - lex_int_literal(): BasicToken
-    - lex_string_literal(): BasicToken
-    - check_keyword(token: BasicToken&): void
-    - check_identifier(token: BasicToken&): void
-    - next_char(): int
+    + printErr(c: char): void
+    + lex_ident(c: char): BasicToken
+    + lex_int_literal(c: char): BasicToken
+    + lex_string_literal(): BasicToken
+    + check_keyword(token: BasicToken&): void
+    + check_identifier(token: BasicToken&): void
 }
 
 BasicToken o-- BasicTokenType

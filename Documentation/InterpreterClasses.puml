@@ -1,18 +1,23 @@
 @startuml Interpreter classes
 
 class BasicInterpreter {
-    - env: BasicEnv
-    - next_line: int = 0
+    + env: BasicEnv
+    - next_line: int = 1
     - runs: int = 0
     - semanticErrs: int = 0
     - runtimeErrs : int = 0
     - lines: std::map<int, std::unique_ptr<BasicStatement>>
-    - console: BasicConsole
+    + console: BasicConsole
     + BasicInterpreter(console: BasicConsole): BasicInterpreter
+    + getRuns(): int
+    + getStemanticErrs(): int
+    + getRuntimeErrs(): int
+    + getTotalErrs(): int
     + emit(s: std::string): void
+    + runInteractive(): void
     - run(): int
     - lex(s: std::string): std::optional<std::list<BasicToken>>
-    - parse(tokens: std::list<BasicToken>&): std::unique_ptr<BasicStatement>
+    - parse(tokens: BasicTokenList&): std::unique_ptr<BasicStatement>
     + semanticCheck(): bool
     + getStatementAt(addr: int): std::pair<int, std::optional<BasicStatement*>> {-1 if EOF, else positive number and statement}
 }
@@ -20,25 +25,33 @@ class BasicInterpreter {
 abstract class BasicConsole {
     + {abstract} nextLine(): std::string*
     + {abstract} printLine(s: const std::string&): void
+    + {abstract} readStdin(): std::string*
 }
 
 class BasicTerminal extends BasicConsole {
     + nextLine(): std::string*
+    + readStdin(): std::string*
     + printLine(s: const std::string&): void
 }
 
 class BasicFileConsole extends BasicConsole {
+    + content: std::string
     + nextLine(): std::string*
+    + readStdin(): std::string*
     + printLine(s: const std::string&): void
 }
 
 class BasicEnv {
     - env: int[26]
     - callStack: std::list<int>
+    - stdin_buffer: std::string
+    + set_line(line: int): void
+    + get_line(): int
     + get(v: int): int {'A' <= v <= 'Z'}
     + set(v: int, val: int): void {'A' <= v <= 'Z'}
-    + pushCurrLine(line: int): void
+    + pushCurrLine(): void
     + popReturnAddress(): int {returns -1 on error, else positive number}
+    + nextStdin(console: BasicConsole&): char
 }
 
 BasicInterpreter o-- BasicConsole
