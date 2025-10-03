@@ -13,7 +13,7 @@ class BasicInterpreter {
     + getStemanticErrs(): int
     + getRuntimeErrs(): int
     + getTotalErrs(): int
-    + emit(s: std::string): void
+    + emit(s: std::string): std::optional<BasicTokenType>
     + runInteractive(): void
     - run(): int
     - lex(s: std::string): std::optional<std::list<BasicToken>>

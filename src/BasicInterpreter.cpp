@@ -2,19 +2,20 @@
 #include <BasicInterpreter.hpp>
 #include <BasicRunStatement.hpp>
 #include <iostream>
+#include <optional>
 
-void BasicInterpreter::emit(const std::string& s) {
+std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
     this->next_line++;
 
     auto ots = this->lex(s);
     if(ots == std::nullopt) {
         this->semanticErrs++;
-        return;
+        return std::nullopt;
     }
 
     auto ts = ots.value();
     if(ts.empty())
-        return;
+        return std::nullopt;
 
     if(!ts.empty() && ts.front().typ == BasicTokenType::INT_LITERAL) {
         this->next_line = ts.front().ival;
@@ -24,14 +25,21 @@ void BasicInterpreter::emit(const std::string& s) {
     // if next token is REM, return
     if(!ts.empty() && ts.front().typ == BasicTokenType::REM) {
         this->lines.erase(this->next_line);
-        return;
+        return BasicTokenType::REM;
     }
+
+    // if next token is EXIT, return
+    if(!ts.empty() && ts.front().typ == BasicTokenType::EXIT) {
+        return BasicTokenType::EXIT;
+    }
+
+    std::optional<BasicTokenType> ttyp = ts.empty() ? std::nullopt : std::optional {ts.front().typ};
 
     // parse
     auto stmt = this->parse(ts);
     if(stmt == nullptr) {
         this->semanticErrs++;
-        return;
+        return ttyp;
     }
 
     bool runCode = (dynamic_cast<BasicRunStatement*>(stmt.get()) != nullptr);
@@ -55,6 +63,8 @@ void BasicInterpreter::emit(const std::string& s) {
         // if not a RunStatement, store the line
         this->lines[this->next_line] = std::move(stmt);
     }
+
+    return ttyp;
 }
 
 void BasicInterpreter::runInteractive() {
@@ -62,17 +72,15 @@ void BasicInterpreter::runInteractive() {
         std::string* input = this->console.nextLine();
         if(!input)
             return;
-        bool exit = input->find("EXIT") != std::string::npos;
-        exit      = exit || input->find("exit") != std::string::npos;
-        exit      = exit || input->find("quit") != std::string::npos;
-        exit      = exit || input->find("QUIT") != std::string::npos;
-        if(exit)
-            return;
 
         std::string src = *input;
         delete input;
 
-        this->emit(src);
+        // check if an exit has been reached
+        auto stmt_type = this->emit(src);
+
+        if(stmt_type == BasicTokenType::EXIT)
+            return;
     }
 }
 

@@ -107,6 +107,10 @@ void BasicLexer::check_keyword(BasicToken& token) {
         token.typ = BasicTokenType::REM;
     else if(sval == "RUN")
         token.typ = BasicTokenType::RUN;
+    else if(sval == "END")
+        token.typ = BasicTokenType::END;
+    else if(sval == "EXIT" || sval == "QUIT")
+        token.typ = BasicTokenType::EXIT;
 }
 
 void BasicLexer::check_identifier(BasicToken& token) {

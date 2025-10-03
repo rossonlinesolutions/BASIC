@@ -1,4 +1,4 @@
-@startuml TinyBasic
+@startuml Basic
 'includes
 !include LexerClasses.puml
 !include InterpreterClasses.puml

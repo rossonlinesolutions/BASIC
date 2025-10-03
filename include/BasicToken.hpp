@@ -13,6 +13,8 @@ enum class BasicTokenType {
     REM,
     RUN,
     THEN,
+    END,
+    EXIT,
     INT_LITERAL,
     IDENTIFIER,
     ASSIGN,

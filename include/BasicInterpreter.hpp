@@ -5,6 +5,7 @@
 #include <BasicLexer.hpp>
 #include <BasicParser.hpp>
 #include <BasicStatement.hpp>
+#include <BasicToken.hpp>
 #include <map>
 #include <memory>
 #include <optional>
@@ -39,7 +40,7 @@ class BasicInterpreter {
         return this->getRuntimeErrs() + this->getSemanticErrs();
     }
 
-    void emit(const std::string& s);
+    std::optional<BasicTokenType> emit(const std::string& s);
     std::pair<int, std::optional<BasicStatement*>> getStatementAt(int addr) const;
     void runInteractive();
 
