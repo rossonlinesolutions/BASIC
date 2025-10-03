@@ -1,5 +1,7 @@
 10 REM "First execution"
 10 LET X = ##
+11 PRINT X
+11 REM "Remove second print"
 20 PRINT X
 30 RUN
 

@@ -5,9 +5,6 @@
 
 void BasicInterpreter::emit(const std::string& s) {
     this->next_line++;
-    if(s.find("REM") != std::string::npos) {
-        return;
-    }
 
     auto ots = this->lex(s);
     if(ots == std::nullopt) {
@@ -22,6 +19,12 @@ void BasicInterpreter::emit(const std::string& s) {
     if(!ts.empty() && ts.front().typ == BasicTokenType::INT_LITERAL) {
         this->next_line = ts.front().ival;
         ts.pop_front();
+    }
+
+    // if next token is REM, return
+    if(!ts.empty() && ts.front().typ == BasicTokenType::REM) {
+        this->lines.erase(this->next_line);
+        return;
     }
 
     // parse

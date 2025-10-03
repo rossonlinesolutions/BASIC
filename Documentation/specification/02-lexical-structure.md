@@ -20,6 +20,7 @@ Comments are introduced by the keyword `REM`.
 - A line number may precede the `REM` keyword.
 - The `REM` keyword must be followed by valid tokens, typically string literals.
 - Comments are not executable statements and cannot appear conditionally (e.g., inside an `IF` branch).
+- Line number before `REM` behaves in the same way as specified for line number usage and clears the statement at the current line number
 - Any other usage of `REM` is undefined behavior.
 
 **Example:**
@@ -121,6 +122,7 @@ Delimiters include:
 - If the first token of a line is an integer, it is interpreted as a line number.
 - If no line number is specified, the line number is implicitly the previous line number plus one.
 - Line numbers need not be sequential or unique; entering a line with an existing number overwrites the previous line.
+- A `REM` line with line number does not affect the above rules. In case the line it is on had already a statement, it is removed.
 
 **EBNF:**
 ```
