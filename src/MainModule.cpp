@@ -33,8 +33,8 @@ namespace basic {
             return basic_runFile(argv[1]);
         }
 
-        std::cout << "Ross Online Solutions Tiny BASIC (main)" << std::endl;
-        std::cout << "Version 1.0.0" << std::endl;
+        std::cout << "Ross Online Solutions Tiny BASIC" << std::endl;
+        std::cout << "(branch: " << GIT_BRANCH << ", commit: " << GIT_COMMIT_HASH << ", tag: " << GIT_TAG << ")" << std::endl;
 
         // else run interactive
         BasicTerminal terminal;

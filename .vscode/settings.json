@@ -10,7 +10,12 @@
   "editor.formatOnSaveMode": "file",
   "editor.formatOnType": true,
   "C_Cpp.default.cppStandard": "c++17",
-  "C_Cpp.default.defines": ["SYSTEM_TEST_DIR=\"tests/system\""],
+  "C_Cpp.default.defines": [
+    "SYSTEM_TEST_DIR=\"tests/system\"",
+    "GIT_TAG=\"<nightly>\"",
+    "GIT_COMMIT_HASH=\"<unknown>\"",
+    "GIT_BRANCH=\"<unknown>\""
+  ],
   "files.associations": {
     "iostream": "cpp",
     "any": "cpp",
