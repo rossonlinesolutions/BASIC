@@ -108,6 +108,11 @@ class BasicRunStatement extends BasicStatement {
     + execute(console: BasicConsole&, env: BasicEnv&): int
 }
 
+class BasicEndStatement extends BasicStatement {
+    # property_string(): std::string
+    + execute(console: BasicConsole&, env: BasicEnv&): int
+}
+
 enum BasicRelOperation {
     LOWER,
     GREATER,

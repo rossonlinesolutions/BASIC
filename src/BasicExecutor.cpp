@@ -1,3 +1,4 @@
+#include <BasicEndStatement.hpp>
 #include <BasicExecutor.hpp>
 
 int BasicExecutor::run() {
@@ -8,6 +9,8 @@ int BasicExecutor::run() {
 
     if(res == -1)
         return -1;
+
+    // if last statement was end, we got -2 and just can continue here
     return 0;
 }
 

@@ -1,3 +1,4 @@
+#include <BasicEndStatement.hpp>
 #include <BasicGoSubStatement.hpp>
 #include <BasicGotoStatement.hpp>
 #include <BasicIfStatement.hpp>
@@ -411,6 +412,10 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
                 return nullptr;
 
             return std::make_unique<BasicGotoStatement>(std::move(expr));
+        }
+        case BasicTokenType::END: {
+            ts.pop_front();
+            return std::make_unique<BasicEndStatement>();
         }
         default: {
             console.printLine("Error unknown statment");
