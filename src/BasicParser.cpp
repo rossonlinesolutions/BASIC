@@ -315,31 +315,29 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
         return nullptr;
     }
 
-    switch(ts.front().typ) {
+    auto typ = ts.front().typ;
+    ts.pop_front();
+
+    switch(typ) {
         case BasicTokenType::RETURN: {
-            ts.pop_front();
             return std::make_unique<BasicReturnStatement>();
         }
         case BasicTokenType::RUN: {
-            ts.pop_front();
             return std::make_unique<BasicRunStatement>();
         }
         case BasicTokenType::GOSUB: {
-            ts.pop_front();
             auto e = this->parseExpression(console, ts);
             if(!e)
                 return nullptr;
             return std::make_unique<BasicGoSubStatement>(std::move(e));
         }
         case BasicTokenType::PRINT: {
-            ts.pop_front();
             auto el = this->parseExpressionList(console, ts);
             if(el.empty())
                 return nullptr;
             return std::make_unique<BasicPrintStatement>(std::move(el));
         }
         case BasicTokenType::IF: {
-            ts.pop_front();
             auto lcond = this->parseExpression(console, ts);
             if(!lcond)
                 return nullptr;
@@ -369,8 +367,6 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             return std::make_unique<BasicIfStatement>(std::move(lcond), op, std::move(rcond), std::move(stmt));
         }
         case BasicTokenType::INPUT: {
-            ts.pop_front();
-
             auto vs = this->parseVarList(console, ts);
 
             if(vs.empty())
@@ -379,8 +375,6 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             return std::make_unique<BasicInputStatement>(vs);
         }
         case BasicTokenType::LET: {
-            ts.pop_front();
-
             if(ts.empty() || ts.front().typ != BasicTokenType::IDENTIFIER) {
                 console.printLine("Expected identifier");
                 return nullptr;
@@ -404,8 +398,6 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             return std::make_unique<BasicLetStatement>(c, std::move(expr));
         }
         case BasicTokenType::GOTO: {
-            ts.pop_front();
-
             auto expr = this->parseExpression(console, ts);
 
             if(!expr)
@@ -414,7 +406,6 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             return std::make_unique<BasicGotoStatement>(std::move(expr));
         }
         case BasicTokenType::END: {
-            ts.pop_front();
             return std::make_unique<BasicEndStatement>();
         }
         default: {
