@@ -29,7 +29,7 @@ namespace basic {
     }
 
     int run(int argc, char** argv, BasicConsole* console) {
-        if(argc > 2) {
+        if(argc > 1) {
             return basic_runFile(argv[1]);
         }
 
