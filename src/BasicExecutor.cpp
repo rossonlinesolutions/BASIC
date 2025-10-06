@@ -22,6 +22,10 @@ int BasicExecutor::executeLine() {
     // set the next line to the statements line + 1
     curr_line = stmt.first + 1;
 
+    // set the next line such that a GOSUB call would push the return
+    // line (not statement of this line, instead next line)
+    this->interpreter.env.set_line(curr_line);
+
     int result = stmt.second.value()->execute(this->interpreter.console, this->interpreter.env);
 
     if(result <= 0)

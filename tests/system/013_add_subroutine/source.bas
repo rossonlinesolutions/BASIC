@@ -1,0 +1,16 @@
+10 GOTO 100
+20 REM "add function, X + Y"
+
+PRINT "Call: ", X
+IF Y = 0 THEN RETURN
+LET Y = Y - 1
+LET X = X + 1
+GOSUB 20
+RETURN
+
+100 REM "Execute"
+LET X = #1
+LET Y = 3
+GOSUB 20
+PRINT X
+RUN
