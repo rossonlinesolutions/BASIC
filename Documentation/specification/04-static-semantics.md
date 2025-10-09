@@ -5,6 +5,7 @@
 - All variables exist implicitly; no declaration is required.
 - The initial value of each variable is **undefined**.
 - Reading the value of a variable before it has been assigned results in undefined behavior (see Appendix A).
+- `Var(n)` denote the n-th variable, where n is an expression.
 
 ## 4.2 Types
 - All variables are of type **32‑bit signed integer**.

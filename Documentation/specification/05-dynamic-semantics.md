@@ -51,6 +51,7 @@ The runtime effects of each statement are as follows:
   - Executing `RETURN` with an empty call stack.
   - Insufficient input for an `INPUT` statement.
   - Negative line number in `GOTO` or `GOSUB`.
+  - In `Var(e)` expression, the value of `e` is out of bounds of `0...25`.
 - Aborting program execution returns control to the interpreter prompt.
 
 ## 5.7 Determinism

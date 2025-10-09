@@ -36,10 +36,11 @@ Identifiers in our BASIC dialect are limited to the single uppercase letters `A`
 - Support for wider integer types is optional and outside the scope of this specification.
 - Identifiers do not intersect with reserved keywords.
 - Lowercase identifiers (`a`–`z`) may be supported by implementations but are not part of this specification.
+- The `VAR` array is a special global array over all variables, indexed from `0...25`.
 
 **EBNF:**
 ```
-Identifier ::= "A" | "B" | "C" | ... | "Z"
+Identifier ::= "A" | "B" | "C" | ... | "Z" | "VAR" "(" Expression ")"
 ```
 
 ## 2.5 Keywords
@@ -59,6 +60,7 @@ The following words are reserved keywords in our BASIC dialect. They must appear
 | `RUN`    | Start execution              |
 | `END`    | End execution                |
 | `CLEAR`  | Clear all entered statements |
+| `VAR`    | Array over all variables A-Z |
 
 ## 2.6 Literals
 

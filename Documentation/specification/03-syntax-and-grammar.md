@@ -121,7 +121,7 @@ ExitStatement ::= "EXIT" | "QUIT"
 Expression    ::= [ "+" | "-" ] Term { ( "+" | "-" ) Term }
 Term          ::= Factor { ( "*" | "/" ) Factor }
 Factor        ::= Variable | Number | "(" Expression ")"
-Variable      ::= "A" | "B" | "C" | ... | "Y" | "Z"
+Variable      ::= "A" | "B" | "C" | ... | "Y" | "Z" | "VAR" "(" Expression ")"
 ```
 
 - Standard precedence applies: multiplication and division bind tighter than addition and subtraction.
