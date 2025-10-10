@@ -1,0 +1,20 @@
+LET A = 1
+
+10 IF A = 26 THEN GOTO 100
+LET VAR(A) = A + #a
+LET A = A + 1
+GOTO 10
+
+100 REM "Printing..."
+
+LET A = 1
+
+110 IF A = 26 THEN GOTO 130
+PRINT VAR(A)
+LET A = A + 1
+GOTO 110
+
+130 REM "Print test q and l"
+PRINT Q
+PRINT L
+RUN

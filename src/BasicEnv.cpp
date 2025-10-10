@@ -2,11 +2,17 @@
 #include <BasicEnv.hpp>
 
 int BasicEnv::get(int v) const {
-    return this->env[v - 'A'];
+    if(v >= 'A') {
+        v -= 'A';
+    }
+    return this->env[v];
 }
 
 void BasicEnv::set(int v, int val) {
-    this->env[v - 'A'] = val;
+    if(v >= 'A') {
+        v -= 'A';
+    }
+    this->env[v] = val;
 }
 
 void BasicEnv::pushCurrLine() {
