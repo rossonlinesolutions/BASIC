@@ -43,6 +43,50 @@ g++ -std=c++17 -o basic -Iinclude src/Main.cpp
 
 Once launched, you'll enter the REPL. You can type Tiny BASIC commands directly or enter a full program line-by-line using line numbers.
 
+## 📃 Example
+
+A simple sorting algorithm example:
+
+```basic
+REM "Read 24 ascii characters"
+
+LET A = 2
+20 IF A = 26 THEN GOTO 100
+INPUT VAR(A)
+LET A = A + 1
+GOTO 20
+
+100 REM "Sorting..."
+
+LET A = 2
+
+REM "If reached end, everything is sorted."
+110 IF A = 25 THEN GOTO 200
+LET A = A + 1
+IF VAR(A - 1) <= VAR(A) THEN GOTO 110
+
+REM "Swap A-1"
+LET B = VAR(A - 1)
+LET VAR(A - 1) = VAR(A)
+LET VAR(A) = B
+
+REM "Restart from new"
+LET A = 2
+GOTO 110
+
+200 REM "Print all variables in ascending order"
+LET A = 2
+
+210 IF A = 26 THEN END
+PRINT VAR(A)
+LET A = A + 1
+GOTO 210
+
+REM "Start execution:"
+RUN
+
+```
+
 ## 📚 Language Reference
 
 | Command     | Description                             |
