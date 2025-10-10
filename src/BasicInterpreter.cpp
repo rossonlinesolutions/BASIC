@@ -33,6 +33,13 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
         return BasicTokenType::EXIT;
     }
 
+    // if next token is CLEAR, clear the statements
+    if(!ts.empty() && ts.front().typ == BasicTokenType::CLEAR) {
+        this->lines.clear();
+        this->next_line = 1;
+        return BasicTokenType::CLEAR;
+    }
+
     std::optional<BasicTokenType> ttyp = ts.empty() ? std::nullopt : std::optional {ts.front().typ};
 
     // parse

@@ -113,6 +113,8 @@ void BasicLexer::check_keyword(BasicToken& token) {
         token.typ = BasicTokenType::EXIT;
     else if(sval == "VAR")
         token.typ = BasicTokenType::VAR;
+    else if(sval == "CLEAR")
+        token.typ = BasicTokenType::CLEAR;
 }
 
 void BasicLexer::check_identifier(BasicToken& token) {
