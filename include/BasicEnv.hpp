@@ -27,4 +27,5 @@ class BasicEnv {
     char nextStdin(BasicConsole& console);
 };
 
-#define DIVISION_BY_ZERO "Division by Zero."
+#define DIVISION_BY_ZERO  "Division by Zero."
+#define VAR_OUT_OF_BOUNDS "Var index out of bounds."

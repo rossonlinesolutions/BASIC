@@ -4,6 +4,7 @@
 #include <list>
 #include <memory>
 #include <string>
+#include <variant>
 
 class BasicExpression {
     private:
@@ -13,6 +14,7 @@ class BasicExpression {
     virtual std::string property_string() = 0;
 
     public:
+    using Variable             = std::variant<char, std::unique_ptr<BasicExpression>>;
     virtual ~BasicExpression() = default;
 
     BasicExpression(const std::string& className) : className(className) {

@@ -52,6 +52,9 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
             if(s == DIVISION_BY_ZERO) {
                 res = -1;
                 console.printLine("Execution aborted: Division by zero.");
+            } else if(s == VAR_OUT_OF_BOUNDS) {
+                res = -1;
+                console.printLine("Execution aborted: Var index out of bounds.");
             } else {
                 throw s;
             }

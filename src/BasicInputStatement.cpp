@@ -5,7 +5,11 @@
 std::string BasicInputStatement::property_string() const {
     std::string outp;
     for(auto& c: this->vars) {
-        outp += c;
+        if(std::holds_alternative<char>(c)) {
+            outp += std::get<char>(c);
+        } else {
+            outp += std::get<std::unique_ptr<BasicExpression>>(c)->to_string();
+        }
         outp += ",";
     }
 
@@ -24,7 +28,19 @@ int BasicInputStatement::execute(BasicConsole& console, BasicEnv& env) const {
         if(nxt == -1)
             return -1;
 
-        env.set(c, nxt);
+        if(std::holds_alternative<char>(c)) {
+            env.set(std::get<char>(c), nxt);
+        } else {
+            int value = std::get<std::unique_ptr<BasicExpression>>(c)->eval(env);
+
+            // error if index out of bounds
+            if(value < 0 || value > 25) {
+                throw std::string {VAR_OUT_OF_BOUNDS};
+            }
+
+            // else set env
+            env.set(value, nxt);
+        }
     }
 
     return 0;

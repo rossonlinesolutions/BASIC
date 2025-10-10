@@ -69,7 +69,47 @@ static inline void basic_string_to_int_list(BasicExpressionList& list, const std
     }
 }
 
-static bool basic_parse_var_list(const BasicParser& parser, std::list<char>& list, BasicConsole& console, BasicTokenList& ts) {
+std::optional<BasicExpression::Variable> BasicParser::parseVariable(BasicConsole& console, BasicTokenList& ts) const {
+    if(ts.empty())
+        return std::nullopt;
+
+    if(ts.front().typ == BasicTokenType::IDENTIFIER) {
+        char res = ts.front().sval.at(0);
+        ts.pop_front();
+        return res;
+    }
+
+    if(ts.front().typ == BasicTokenType::VAR) {
+        ts.pop_front();
+
+        if(ts.empty() || ts.front().typ != BasicTokenType::LPAREN) {
+            console.printLine("Error expected `(`.");
+            return std::nullopt;
+        }
+
+        ts.pop_front();
+
+        auto expr = this->parseExpression(console, ts);
+
+        if(ts.empty() || ts.front().typ != BasicTokenType::RPAREN) {
+            console.printLine("Error expected `)`.");
+            return std::nullopt;
+        }
+
+        ts.pop_front();
+
+        return expr;
+    }
+
+    // error
+    console.printLine("Expected VAR(e) or IDENTIFIER.");
+    return std::nullopt;
+}
+
+static bool basic_parse_var_list(const BasicParser& parser,
+                                 std::list<BasicExpression::Variable>& list,
+                                 BasicConsole& console,
+                                 BasicTokenList& ts) {
     // error if empty
     if(ts.empty()) {
         console.printLine("Error parsing var list");
@@ -77,14 +117,10 @@ static bool basic_parse_var_list(const BasicParser& parser, std::list<char>& lis
     }
 
     // parse character
-    if(ts.front().typ == BasicTokenType::IDENTIFIER) {
-        list.push_back(ts.front().sval.at(0));
-        ts.pop_front();
-    } else {
-        // wrong type
-        console.printLine("Error parsing var list: wrong token type");
+    auto var = parser.parseVariable(console, ts);
+    if(var == std::nullopt)
         return false;
-    }
+    list.push_back(std::move(var.value()));
 
     // if next is comma continue else return
     if(ts.empty() || ts.front().typ != BasicTokenType::COMMA)
@@ -95,8 +131,8 @@ static bool basic_parse_var_list(const BasicParser& parser, std::list<char>& lis
     return basic_parse_var_list(parser, list, console, ts);
 }
 
-std::list<char> BasicParser::parseVarList(BasicConsole& console, BasicTokenList& ts) const {
-    std::list<char> var_list;
+std::list<BasicExpression::Variable> BasicParser::parseVarList(BasicConsole& console, BasicTokenList& ts) const {
+    std::list<BasicExpression::Variable> var_list;
     bool res = basic_parse_var_list(*this, var_list, console, ts);
 
     if(res)
@@ -186,9 +222,12 @@ std::unique_ptr<BasicExpression> BasicParser::parseSimpleExpression(BasicConsole
     // parse simple expression
     std::unique_ptr<BasicExpression> expr;
     switch(ts.front().typ) {
+        case BasicTokenType::VAR:
         case BasicTokenType::IDENTIFIER: {
-            expr = std::make_unique<BasicVarExpression>(ts.front().sval.at(0));
-            ts.pop_front();
+            auto var = this->parseVariable(console, ts);
+            if(var == std::nullopt)
+                return nullptr;
+            expr = std::make_unique<BasicVarExpression>(std::move(var.value()));
             break;
         }
         case BasicTokenType::INT_LITERAL: {
@@ -372,16 +411,19 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             if(vs.empty())
                 return nullptr;
 
-            return std::make_unique<BasicInputStatement>(vs);
+            return std::make_unique<BasicInputStatement>(std::move(vs));
         }
         case BasicTokenType::LET: {
-            if(ts.empty() || ts.front().typ != BasicTokenType::IDENTIFIER) {
-                console.printLine("Expected identifier");
+            if(ts.empty()) {
+                console.printLine("Expected variable");
                 return nullptr;
             }
 
-            char c = ts.front().sval.at(0);
-            ts.pop_front();
+            // parse variable
+            auto var = this->parseVariable(console, ts);
+
+            if(var == std::nullopt)
+                return nullptr;
 
             // eat a =
             if(ts.empty() || ts.front().typ != BasicTokenType::ASSIGN) {
@@ -395,7 +437,7 @@ std::unique_ptr<BasicStatement> BasicParser::parseStatement(BasicConsole& consol
             if(!expr)
                 return nullptr;
 
-            return std::make_unique<BasicLetStatement>(c, std::move(expr));
+            return std::make_unique<BasicLetStatement>(std::move(var.value()), std::move(expr));
         }
         case BasicTokenType::GOTO: {
             auto expr = this->parseExpression(console, ts);

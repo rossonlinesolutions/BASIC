@@ -7,9 +7,9 @@ class BasicVarExpression : public BasicExpression {
     std::string property_string() override;
 
     public:
-    char value;
+    BasicExpression::Variable value;
 
-    BasicVarExpression(char value) : BasicExpression {"VarExpression"}, value(value) {
+    BasicVarExpression(BasicExpression::Variable value) : BasicExpression {"VarExpression"}, value(std::move(value)) {
     }
     int eval(BasicEnv& env) const override;
 };

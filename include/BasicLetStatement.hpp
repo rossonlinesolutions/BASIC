@@ -9,11 +9,11 @@ class BasicLetStatement : public BasicStatement {
     std::string property_string() const override;
 
     public:
-    char variable;
+    BasicExpression::Variable variable;
     std::unique_ptr<BasicExpression> expr;
 
-    BasicLetStatement(char variable, std::unique_ptr<BasicExpression> expr) :
-        BasicStatement {"LetStatement"}, variable(variable), expr(std::move(expr)) {
+    BasicLetStatement(BasicExpression::Variable variable, std::unique_ptr<BasicExpression> expr) :
+        BasicStatement {"LetStatement"}, variable(std::move(variable)), expr(std::move(expr)) {
     }
 
     int execute(BasicConsole& console, BasicEnv& env) const override;

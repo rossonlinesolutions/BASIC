@@ -15,6 +15,7 @@ enum class BasicTokenType {
     THEN,
     END,
     EXIT,
+    VAR,
     INT_LITERAL,
     IDENTIFIER,
     ASSIGN,

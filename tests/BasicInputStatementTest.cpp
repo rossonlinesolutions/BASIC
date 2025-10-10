@@ -6,7 +6,9 @@
 #include <gtest/gtest.h>
 
 TEST(AllTests, BasicInputStatementOne) {
-    BasicInputStatement stmt {{'A'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "a";
@@ -21,7 +23,11 @@ TEST(AllTests, BasicInputStatementOne) {
 }
 
 TEST(AllTests, BasicInputStatementThree) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "abq";
@@ -40,7 +46,11 @@ TEST(AllTests, BasicInputStatementThree) {
 }
 
 TEST(AllTests, BasicInputStatementEOF) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "ad";
@@ -53,7 +63,11 @@ TEST(AllTests, BasicInputStatementEOF) {
 }
 
 TEST(AllTests, BasicInputStatementMultiline) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "ab\nq";
@@ -72,7 +86,11 @@ TEST(AllTests, BasicInputStatementMultiline) {
 }
 
 TEST(AllTests, BasicInputStatementMultiEmptyLine) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "a\nb\n\nq\n";
@@ -91,7 +109,11 @@ TEST(AllTests, BasicInputStatementMultiEmptyLine) {
 }
 
 TEST(AllTests, BasicInputStatementMultilineEOF) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "ad\n\n\n\n";
@@ -104,7 +126,11 @@ TEST(AllTests, BasicInputStatementMultilineEOF) {
 }
 
 TEST(AllTests, BasicInputStatementTooLong) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "abqzz";
@@ -123,8 +149,15 @@ TEST(AllTests, BasicInputStatementTooLong) {
 }
 
 TEST(AllTests, BasicInputStatementBuffered) {
-    BasicInputStatement stmt {{'A', 'B', 'Q'}};
-    BasicInputStatement stmt2 {{'B', 'Z'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('Q');
+    BasicInputStatement stmt {std::move(vars)};
+    std::list<BasicExpression::Variable> vars2;
+    vars2.push_back('B');
+    vars2.push_back('Z');
+    BasicInputStatement stmt2 {std::move(vars2)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "abqbz";
@@ -153,7 +186,11 @@ TEST(AllTests, BasicInputStatementBuffered) {
 }
 
 TEST(AllTests, BasicInputStatementOverride) {
-    BasicInputStatement stmt {{'A', 'B', 'B'}};
+    std::list<BasicExpression::Variable> vars;
+    vars.push_back('A');
+    vars.push_back('B');
+    vars.push_back('B');
+    BasicInputStatement stmt {std::move(vars)};
     BasicEnv env;
     BasicTestConsole console;
     console.in = "aqbz";
