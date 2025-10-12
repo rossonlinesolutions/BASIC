@@ -30,7 +30,7 @@ class BasicIntExpression extends BasicExpression {
 }
 
 class BasicVarExpression extends BasicExpression {
-    - value: char
+    - value: BasicExpression::Variable
     # property_string(): std::string
     + eval(v: BasicEnv&): int
 }
@@ -80,13 +80,13 @@ class BasicGotoStatement extends BasicStatement {
 }
 
 class BasicInputStatement extends BasicStatement {
-    - vars: std::list<char>
+    - vars: std::list<BasicExpression::Variable>
     # property_string(): std::string
     + execute(console: BasicConsole&, env: BasicEnv&): int
 }
 
 class BasicLetStatement extends BasicStatement {
-    - variable: char
+    - variable: BasicExpression::Variable
     - expr: std::unique_ptr<BasicExpression>
     # property_string(): std::string
     + execute(console: BasicConsole&, env: BasicEnv&): int
@@ -130,11 +130,12 @@ class BasicParser {
     + parseLine(console: BasicConsole&, ts: BasicTokenList&): std::unique_ptr<BasicStatement>
     + parseExpression(console: BasicConsole&, ts: BasicTokenList&): std::unique_ptr<BasicExpression>
     + parseStatement(console: BasicConsole&, ts: BasicTokenList&): std::unique_ptr<BasicStatement>
-    + parseVarList(console: BasicConsole&, ts: BasicTokenList&): std::list<char>
+    + parseVarList(console: BasicConsole&, ts: BasicTokenList&): std::list<BasicExpression::Variable>
     + parseBinExpression(console: BasicConsole&, ts: BasicTokenList&): std::unique_ptr<BasicExpression>
     + parseSimpleExpression(console: BasicConsole&, ts: BasicTokenList&): std::unique_ptr<BasicExpression>
     + parseExpressionList(console: BasicConsole&, ts: BasicTokenList&): std::list<std::unique_ptr<BasicExpression>>
     + parseOp(console: BasicConsole&, ts: BasicTokenList&): std::tuple<BasicBinOp, int, int>
+    + parseVariable(console: BasicConsole&, ts: BasicTokenList&): std::optional<BasicExpression::Variable>
 }
 
 BasicIfStatement o-- BasicExpression
