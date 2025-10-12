@@ -18,7 +18,7 @@ std::unique_ptr<BasicStatement> BasicParser::parseLine(BasicConsole& console, Ba
     auto stmt = this->parseStatement(console, ts);
 
     if(!ts.empty()) {
-        console.printLine("Error: found unparsed junk at end.");
+        console.printLine(UNPARSED_END);
         return nullptr;
     }
 

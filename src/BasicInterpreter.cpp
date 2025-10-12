@@ -17,24 +17,44 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
     if(ts.empty())
         return std::nullopt;
 
+    // parse and set line number
     if(!ts.empty() && ts.front().typ == BasicTokenType::INT_LITERAL) {
+        // only line number is illegal
+        if(ts.size() == 1) {
+            this->semanticErrs++;
+            console.printLine("Error: Illegal void statement with line number.");
+            return std::nullopt;
+        }
+
         this->next_line = ts.front().ival;
         ts.pop_front();
     }
 
     // if next token is REM, return
     if(!ts.empty() && ts.front().typ == BasicTokenType::REM) {
+        // tokens after REM is allowed.
         this->lines.erase(this->next_line);
         return BasicTokenType::REM;
     }
 
     // if next token is EXIT, return
     if(!ts.empty() && ts.front().typ == BasicTokenType::EXIT) {
+        // report error if ts.size() > 1, but exit
+        if(ts.size() > 1) {
+            this->semanticErrs++;
+            console.printLine(UNPARSED_END);
+        }
         return BasicTokenType::EXIT;
     }
 
     // if next token is CLEAR, clear the statements
     if(!ts.empty() && ts.front().typ == BasicTokenType::CLEAR) {
+        // report error if ts.size() > 1, but no clear
+        if(ts.size() > 1) {
+            this->semanticErrs++;
+            console.printLine(UNPARSED_END);
+            return BasicTokenType::CLEAR;
+        }
         this->lines.clear();
         this->next_line = 1;
         return BasicTokenType::CLEAR;

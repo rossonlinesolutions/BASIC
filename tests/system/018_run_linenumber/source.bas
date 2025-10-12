@@ -1,0 +1,5 @@
+10 PRINT "Hello"
+10 RUN
+09 RUN
+PRINT "Hell"
+RUN

@@ -29,3 +29,4 @@ class BasicEnv {
 
 #define DIVISION_BY_ZERO  "Division by Zero."
 #define VAR_OUT_OF_BOUNDS "Var index out of bounds."
+#define UNPARSED_END      "Error: found unparsed junk at end."
