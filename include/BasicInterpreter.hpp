@@ -12,7 +12,7 @@
 #include <string>
 
 class BasicInterpreter {
-    int next_line    = 1;
+    int next_line    = 0;
     int runs         = 0;
     int semanticErrs = 0;
     int runtimeErrs  = 0;

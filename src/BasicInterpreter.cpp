@@ -5,8 +5,6 @@
 #include <optional>
 
 std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
-    this->next_line++;
-
     auto ots = this->lex(s);
     if(ots == std::nullopt) {
         this->semanticErrs++;
@@ -17,6 +15,9 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
     if(ts.empty())
         return std::nullopt;
 
+    // line number
+    int lineno = this->next_line + 1;
+
     // parse and set line number
     if(!ts.empty() && ts.front().typ == BasicTokenType::INT_LITERAL) {
         // only line number is illegal
@@ -26,14 +27,15 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
             return std::nullopt;
         }
 
-        this->next_line = ts.front().ival;
+        lineno = ts.front().ival;
         ts.pop_front();
     }
 
     // if next token is REM, return
     if(!ts.empty() && ts.front().typ == BasicTokenType::REM) {
         // tokens after REM is allowed.
-        this->lines.erase(this->next_line);
+        this->lines.erase(lineno);
+        this->next_line = lineno;
         return BasicTokenType::REM;
     }
 
@@ -56,7 +58,7 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
             return BasicTokenType::CLEAR;
         }
         this->lines.clear();
-        this->next_line = 1;
+        this->next_line = 0;
         return BasicTokenType::CLEAR;
     }
 
@@ -69,7 +71,8 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
         return ttyp;
     }
 
-    bool runCode = (dynamic_cast<BasicRunStatement*>(stmt.get()) != nullptr);
+    bool runCode    = (dynamic_cast<BasicRunStatement*>(stmt.get()) != nullptr);
+    this->next_line = lineno;
 
     if(runCode) {
         int res = 0;
@@ -91,7 +94,7 @@ std::optional<BasicTokenType> BasicInterpreter::emit(const std::string& s) {
         }
     } else {
         // if not a RunStatement, store the line
-        this->lines[this->next_line] = std::move(stmt);
+        this->lines[lineno] = std::move(stmt);
     }
 
     return ttyp;
