@@ -1,8 +1,5 @@
 # 🧮 BASIC Interpreter in C++
 
-> [!NOTE]
-> This project is still *Under Construction*.
-
 Welcome to your very own retro computing adventure! This project is a minimalist interpreter for our own **BASIC** dialect, a simplified version of the BASIC programming language originally designed for early microcomputers. Written in modern C++, this interpreter brings vintage programming charm to today's systems.
 
 ## 🚀 Features
